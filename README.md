@@ -1,2 +1,2 @@
 # SearchEngine
-A simple search engine designed with html and php
+A simple search engine designed with html, css and php
