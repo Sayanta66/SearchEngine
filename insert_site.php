@@ -39,30 +39,25 @@
 <?php
 	$link = mysqli_connect("localhost","root","","Search");
 	
-	if(isset($_POST['submit'])){
-		
-		$site_title = $_POST['site_title'];
-		$site_link = $_POST['site_link'];
-		$site_keywords = $_POST['site_keywords'];
-		$site_desc = $_POST['site_desc'];
-		$site_image = $_FILES['site_image']['name'];
-		$site_image_tmp = $_FILES['site_image']['tmp_name'];
-		
-		if($site_title=='' OR $site_link=='' OR $site_keywords=='' OR $site_desc==''){
-		
-		echo "<script>alert('please fill all the fields!')</script>";
-		
+	if(!isset($_POST['submit'])){
 		exit();
-		}
-		else{
-		$insert_query = "insert into sites (site_title,site_link,site_keywords,site_desc,site_image) values ('$site_title','$site_link','$site_keywords','$site_desc','$site_image')";
-		move_uploaded_file($site_image_tmp,"images/{$site_image}");
-		if (mysqli_query($link,$insert_query)){
-			
-			echo "<script>alert('Data inserted into table')</script>";
-		
-		}
 	}
+		
+	$site_title = $_POST['site_title'];
+	$site_link = $_POST['site_link'];
+	$site_keywords = $_POST['site_keywords'];
+	$site_desc = $_POST['site_desc'];
+	$site_image = $_FILES['site_image']['name'];
+	$site_image_tmp = $_FILES['site_image']['tmp_name'];
+
+	if($site_title=='' OR $site_link=='' OR $site_keywords=='' OR $site_desc==''){		
+		echo "<script>alert('please fill all the fields!')</script>";
+		exit();
 	}
 
-?>
+	$insert_query = "insert into sites (site_title,site_link,site_keywords,site_desc,site_image) values ('$site_title','$site_link','$site_keywords','$site_desc','$site_image')";
+	move_uploaded_file($site_image_tmp,"images/{$site_image}");
+	if (mysqli_query($link,$insert_query)){
+		echo "<script>alert('Data inserted into table')</script>";
+	}
+
